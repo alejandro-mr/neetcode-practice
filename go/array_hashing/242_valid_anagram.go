@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 func main() {
@@ -15,34 +14,37 @@ func main() {
 }
 
 func isAnagram(s string, t string) bool {
-	// bruteforce approach
+	// hashmap approach
 	if len(s) > len(t) || len(t) > len(s) {
 		return false
 	}
-	// sort both strings
-	unsorted_s := []rune(s)
-	unsorted_t := []rune(t)
 
-	sort.Slice(unsorted_s, func(i, j int) bool {
-		return unsorted_s[i] < unsorted_s[j]
-	})
-	sort.Slice(unsorted_t, func(i, j int) bool {
-		return unsorted_t[i] < unsorted_t[j]
-	})
-	// assuming insertion sort, worst case each string will be sorted in O(n^2)
-	// if sort.Slice it's internally doing merge sort/quick sort complexity it's O(n log n)
-	// but since both strings have the same length we can assume the same complexity
-	// space: O(1) it's probably swapping values in the rune array
+	charCount := make(map[rune]int)
 
-	sorted_s := string(unsorted_s)
-	sorted_t := string(unsorted_t)
+	// convert string to runes array
+	sChars := []rune(s)
+	// save runes in map with char count
+	for i := 0; i < len(sChars); i++ {
+		if _, exists := charCount[sChars[i]]; exists {
+			charCount[sChars[i]] += 1
+			continue
+		}
+		charCount[sChars[i]] = 1
+	}
 
-	// check one string against the other
-	// complexity: O(n)
-	// space: 0(1)
-	// both strings have the same length, and we are only iterating over 1 of the strings
-	for i := 0; i < len(sorted_s); i++ {
-		if sorted_s[i] != sorted_t[i] {
+	tChars := []rune(t)
+	for i := 0; i < len(tChars); i++ {
+		if _, exists := charCount[tChars[i]]; exists {
+			charCount[tChars[i]] -= 1
+		} else {
+			// if character doesn't exists in original string, it's not valid
+			return false
+		}
+	}
+
+	for _, v := range charCount {
+		if v > 0 {
+			// return false if there are still some chars with value greater than 0
 			return false
 		}
 	}
