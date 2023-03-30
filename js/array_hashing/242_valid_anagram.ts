@@ -1,5 +1,5 @@
 function isAnagram(s: string, t: string): boolean {
-    if (s.length > t.length || t.length > s.length) return false
+    if (s.length != t.length) return false
 
     const charsCount: Map<string, number> = new Map()
 

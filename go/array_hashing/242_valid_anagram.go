@@ -15,7 +15,7 @@ func main() {
 
 func isAnagram(s string, t string) bool {
 	// hashmap approach
-	if len(s) > len(t) || len(t) > len(s) {
+	if len(s) != len(t) {
 		return false
 	}
 
