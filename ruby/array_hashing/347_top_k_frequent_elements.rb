@@ -22,6 +22,8 @@ def top_k_frequent(nums, k)
 end
 
 def test
+  #Test cases
+
   # result: [1, 2]
   puts top_k_frequent([1, 1, 1, 2, 2, 3], 2).inspect
 
