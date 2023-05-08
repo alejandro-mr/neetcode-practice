@@ -1,65 +1,24 @@
 function groupAnagrams(strs: string[]): string[][] {
-  console.log(strs.length);
   if (strs.length <= 1) {
     return [strs];
   }
 
-  let result: string[][] = [];
-  let tmp: string[][][] = [];
+  const groups: Map<string, string[]> = new Map();
 
   for (const str of strs) {
-    // calculate code value of str
-    const strCount = str
-      .split("")
-      .reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    // since two non anagram string can have the same count, we ensure they share the same chars
-    if (tmp[strCount] && tmp[strCount].length > 0) {
-      const total = tmp[strCount].length;
-      let skip = false;
-      for (let i = 0; i < total; i++) {
-        const first = tmp[strCount][i][0];
-
-        if (haveSameChar(str, first)) {
-          tmp[strCount][i] = [...tmp[strCount][i], str];
-          skip = true;
-          break;
-        }
-      }
-      if (!skip) {
-        tmp[strCount] = [...tmp[strCount], [str]];
-      }
-      skip = false;
+    const count: number[] = Array(26).fill(0);
+    for (const char of str.split("")) {
+      count[char.charCodeAt(0) - "a".charCodeAt(0)] += 1;
+    }
+    const key = count.toString();
+    const existent = groups.get(key);
+    if (existent && existent.length) {
+      groups.set(key, new Array<string>(...existent, str));
     } else {
-      tmp[strCount] = [[str]];
+      groups.set(key, new Array(str));
     }
   }
-
-  tmp = tmp.filter((group) => group !== null);
-  console.log(tmp);
-  result = tmp.reduce((acc, groups) => acc.concat(groups), []);
-  return result;
-}
-
-function haveSameChar(str1: string, str2: string): boolean {
-  const hashStr = new Map();
-  for (let char of str1) {
-    hashStr.set(char, (hashStr.get(char) || 0) + 1);
-  }
-  const hash = new Map();
-  for (let char of str2) {
-    hash.set(char, (hash.get(char) || 0) + 1);
-  }
-
-  if (hashStr.size === hash.size) {
-    for (const [char, count] of hashStr) {
-      if (!hash.has(char)) return false;
-      if (hash.has(char) && hash.get(char) !== count) return false;
-    }
-  } else {
-    return false;
-  }
-
-  return true;
+  return [...groups.values()];
 }
 
 (() => {
@@ -69,21 +28,11 @@ function haveSameChar(str1: string, str2: string): boolean {
   console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
 
   // result: [['']]
-  //console.log(groupAnagrams([""]));
+  console.log(groupAnagrams([""]));
 
   // result: [['a']]
-  //console.log(groupAnagrams(["a"]));
+  console.log(groupAnagrams(["a"]));
 
-  //
+  // result: [['a', 'a'], ['aa'], ['ab']]
+  console.log(groupAnagrams(["a", "a", "aa", "ab"]));
 })();
-
-/*
- * 26 letters from a-z
- * if we have an array with 26 position for each letter, we can check if the same letters exist in the array, this will be considered an exact match of the same length,
- * how do we group them thogether in the same space?
- *
- * eat, tea, ate
- * tan, nat,
- * bat
- *
- */

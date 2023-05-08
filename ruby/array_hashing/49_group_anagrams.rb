@@ -20,12 +20,18 @@ def group_anagrams(strs)
 end
 
 def test
+  # Test cases
+
+  # result: [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
   puts group_anagrams(%w[eat tea tan ate nat bat]).inspect
 
+  # result: [[""]]
   puts group_anagrams([""]).inspect
 
+  # result: [["a"]]
   puts group_anagrams(["a"]).inspect
 
+  # result: [["a", "a"], ["aa"], ["ab"]]
   puts group_anagrams(%w[a a aa ab]).inspect
 end
 
