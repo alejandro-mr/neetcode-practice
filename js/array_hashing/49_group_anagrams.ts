@@ -13,9 +13,9 @@ function groupAnagrams(strs: string[]): string[][] {
     const key = count.toString();
     const existent = groups.get(key);
     if (existent && existent.length) {
-      groups.set(key, new Array<string>(...existent, str));
+      groups.set(key, [...existent, str]);
     } else {
-      groups.set(key, new Array(str));
+      groups.set(key, [str]);
     }
   }
   return [...groups.values()];
