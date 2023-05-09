@@ -13,11 +13,8 @@ def max_area(height)
 
     max = a > max ? a : max
 
-    k -= 1 and next if height[i] == height[k]
-
+    k -= 1 and next if height[k] <= h
     i += 1 and next if height[i] == h
-
-    k -= 1
   end
 
   max

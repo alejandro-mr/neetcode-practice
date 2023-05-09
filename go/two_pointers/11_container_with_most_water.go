@@ -31,14 +31,12 @@ func maxArea(height []int) int {
 			max = a
 		}
 
-		if height[i] == height[k] {
+		if height[k] <= h {
 			k--
 			continue
 		}
 		if height[i] == h {
 			i++
-		} else {
-			k--
 		}
 	}
 	return max

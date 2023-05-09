@@ -17,14 +17,12 @@ function maxArea(height: number[]): number {
 
     max = a > max ? a : max;
 
-    if (height[i] === height[k]) {
+    if (height[k] <= h) {
       k--;
       continue;
     }
     if (height[i] === h) {
       i++;
-    } else {
-      k--;
     }
   }
 
