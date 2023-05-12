@@ -36,7 +36,7 @@ func populateList(values []int) *ListNode {
 	head := ListNode{values[0], nil}
 	current := &head
 
-	for _, value := range values[1:len(values)] {
+	for _, value := range values[1:] {
 		next := ListNode{value, nil}
 		current.Next = &next
 		current = current.Next
