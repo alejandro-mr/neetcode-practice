@@ -1,41 +1,24 @@
 function lengthOfLongestSubstring(s: string): number {
   if (!s.length) return 0;
 
-  let slow: number = 0;
-  let fast: number = 1;
+  let left: number = 0;
   let set: Set<string> = new Set();
-  set.add(s[slow]);
+  set.add(s[left]);
 
-  // min substr it's 1, since string can't be empty at this point
-  let counter: number = 1;
-  let longest: number = counter;
+  let longest: number = set.size;
 
-  while (fast < s.length) {
-    if (set.has(s[fast])) {
-      slow += 1;
-      fast = slow + 1;
-
-      set.clear();
-      set.add(s[slow]);
-      counter = 1;
-
-      continue;
+  for (let right: number = left + 1; right < s.length; right++) {
+    while (set.has(s[right])) {
+      set.delete(s[left]);
+      left += 1;
     }
-    counter += 1;
-    set.add(s[fast]);
+    set.add(s[right]);
 
-    longest = counter > longest ? counter : longest;
-    fast += 1;
+    longest = set.size > longest ? set.size : longest;
   }
 
   return longest;
 }
-
-/*
- * substr is a set of subsequent characters without repeating chars
- * when we find a repeated char, we can stop the substr count and advance any pointer we are using at the moment
- * first idea: use a two pointer approach, slow and fast, slow starts at 0 and fast at 1, we advance fast until a repeated char is found (using hash to track already seen chars), if there is a repeated char, we clear the hash and move slow to fast position, repeat the process (spoiler it didn't work, but was a good starting point)
- */
 
 (() => {
   // Test cases
