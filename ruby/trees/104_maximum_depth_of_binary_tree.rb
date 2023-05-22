@@ -19,12 +19,12 @@ def build_tree(values, level = 0)
   root
 end
 
-@depth = 0
+@depth = 1
 def dft(root, level = 1)
   @depth = level if level > @depth
 
-  dft(root.left, level + 1) unless root.left.nil?
-  dft(root.right, level + 1) unless root.right.nil?
+  dft(root.left, level + 1) unless root.nil? || root.left.nil?
+  dft(root.right, level + 1) unless root.nil? || root.right.nil?
 
   @depth
 end
@@ -32,10 +32,10 @@ end
 # @param {TreeNode} root
 # @return {Integer}
 def max_depth(root)
-  @depth if root.nil?
+  return 0 if root.nil?
 
   total_depth = dft(root)
-  @depth = 0
+  @depth = 1
   total_depth
 end
 
