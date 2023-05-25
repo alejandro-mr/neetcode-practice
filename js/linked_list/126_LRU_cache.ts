@@ -1,56 +1,56 @@
 class ListNode {
-  _next: ListNode | null;
-  _prev: ListNode | null;
-  _key: number;
-  _value: number;
+  #next: ListNode | null;
+  #prev: ListNode | null;
+  #value: number;
+  readonly #key: number;
 
   constructor(key: number, value: number) {
-    this._key = key;
-    this._value = value;
-    this._next = null;
-    this._prev = null;
+    this.#key = key;
+    this.#value = value;
+    this.#next = null;
+    this.#prev = null;
   }
 
   get next() {
-    return this._next;
+    return this.#next;
   }
   get prev() {
-    return this._prev;
+    return this.#prev;
   }
   get key() {
-    return this._key;
+    return this.#key;
   }
   get value() {
-    return this._value;
+    return this.#value;
   }
 
   set next(node: ListNode | null) {
-    this._next = node;
+    this.#next = node;
   }
   set prev(node: ListNode | null) {
-    this._prev = node;
+    this.#prev = node;
   }
   set value(value: number) {
-    this._value = value;
+    this.#value = value;
   }
 }
 
 class LinkedList {
-  _head: ListNode | null;
-  _tail: ListNode | null;
+  #head: ListNode | null;
+  #tail: ListNode | null;
 
   constructor() {
-    this._head = null;
-    this._tail = null;
+    this.#head = null;
+    this.#tail = null;
   }
 
   moveToHead(node: ListNode | undefined): ListNode | undefined {
     if (!node) return;
-    if (!this._head) return;
-    if (node === this._head) return this._head;
+    if (!this.#head) return;
+    if (node === this.#head) return this.#head;
 
-    if (node === this._tail) {
-      this._tail = node.prev;
+    if (node === this.#tail) {
+      this.#tail = node.prev;
       if (node.prev) node.prev.next = null;
     }
 
@@ -60,47 +60,47 @@ class LinkedList {
     if (next) next.prev = prev;
 
     node.prev = null;
-    node.next = this._head;
+    node.next = this.#head;
 
-    this._head.prev = node;
-    this._head = node;
+    this.#head.prev = node;
+    this.#head = node;
 
-    return this._head;
+    return this.#head;
   }
 
   push(node: ListNode) {
     if (!node) return;
     // if head is empty, it means the list its new, we insert node into head and tail.
     if (this.isEmpty()) {
-      this._head = node;
-      this._tail = node;
+      this.#head = node;
+      this.#tail = node;
     } else {
-      if (!this._head) return;
+      if (!this.#head) return;
       // we insert new node at head of list, updating pointers
 
-      node.next = this._head;
-      this._head.prev = node;
-      this._head = node;
+      node.next = this.#head;
+      this.#head.prev = node;
+      this.#head = node;
     }
-    return this._head;
+    return this.#head;
   }
 
   isEmpty() {
-    return this._head === null && this._tail === null;
+    return this.#head === null && this.#tail === null;
   }
 
   deleteTail() {
-    if (this._tail) {
-      let prev = this._tail.prev;
-      this._tail.prev = null;
+    if (this.#tail) {
+      let prev = this.#tail.prev;
+      this.#tail.prev = null;
 
-      if (prev) this._tail = prev;
-      this._tail.next = null;
+      if (prev) this.#tail = prev;
+      this.#tail.next = null;
     }
   }
 
   get size() {
-    let head = this._head;
+    let head = this.#head;
     let size = 0;
 
     while (head) {
@@ -112,32 +112,31 @@ class LinkedList {
   }
 
   get tail() {
-    return this._tail;
+    return this.#tail;
   }
 
   get head() {
-    return this._head;
+    return this.#head;
   }
-  // maybe include append node logic here
 }
 
 class LRUCache {
-  _capacity: number;
-  _nodes: Map<number, ListNode>;
-  _list: LinkedList;
+  readonly #capacity: number;
+  #nodes: Map<number, ListNode>;
+  #list: LinkedList;
 
   constructor(capacity: number) {
-    this._capacity = capacity;
-    this._nodes = new Map();
-    this._list = new LinkedList();
+    this.#capacity = capacity;
+    this.#nodes = new Map();
+    this.#list = new LinkedList();
   }
 
   get(key: number): number | null {
     // move position of node in list to most recently used position (aka HEAD)
-    let node = this._nodes.get(key);
+    let node = this.#nodes.get(key);
     if (!node) return -1;
 
-    node = this._list.moveToHead(node);
+    node = this.#list.moveToHead(node);
     if (!node) return null;
     return node.value;
   }
@@ -146,27 +145,27 @@ class LRUCache {
     // if the key exists, we replace the current node in cache with the new one, and move it on the list to the head position.
     // if it doesn't exists, we create new node, check the capacity of our cache and replace the least recently used element (aka TAIL)
     //   after replacing we insert this new node at the HEAD
-    let exists: ListNode | undefined = this._nodes.get(key);
+    let exists: ListNode | undefined = this.#nodes.get(key);
     if (exists) {
       // detachin node
       exists.value = value;
-      this._list.moveToHead(exists);
-      this._nodes.set(key, exists);
+      this.#list.moveToHead(exists);
+      this.#nodes.set(key, exists);
       return;
     }
 
     const node: ListNode = new ListNode(key, value);
     // check if capacity has been surpassed
-    if (this._list.size >= this._capacity) {
+    if (this.#list.size >= this.#capacity) {
       // replace least used element, and move the new one to head
-      let tail = this._list.tail;
-      if (tail) this._nodes.delete(tail.key);
-      this._list.deleteTail();
+      let tail = this.#list.tail;
+      if (tail) this.#nodes.delete(tail.key);
+      this.#list.deleteTail();
     }
     // insert new element at head
-    this._list.push(node);
+    this.#list.push(node);
 
-    this._nodes.set(key, node);
+    this.#nodes.set(key, node);
   }
 }
 
