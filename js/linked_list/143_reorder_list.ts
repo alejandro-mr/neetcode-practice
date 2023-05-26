@@ -7,14 +7,14 @@ import ListUtils from "./lib/utils";
 function reorderList(head: ListNode | null): void {
   if (!head || !head.next) return;
 
-  let nodes = [head];
+  let nodes: ListNode[] = [head];
   while (head.next) {
     head = head.next;
     nodes = [...nodes, head];
   }
 
   head = nodes.shift() || null;
-  let tail = nodes.pop() || null;
+  let tail: ListNode | null = nodes.pop() || null;
 
   while (tail || head) {
     if (head) head.next = tail || null;
