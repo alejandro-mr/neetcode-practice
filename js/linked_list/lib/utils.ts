@@ -1,11 +1,12 @@
 import ListNode from "./list_node";
 
-export function createList(values: number[]): ListNode {
-  const head = new ListNode(values.shift());
+export function createList(values: number[]): ListNode | null {
+  let val = values.shift();
+  const head = val !== undefined ? new ListNode(val) : null;
   let current = head;
   for (let value of values) {
     const next = new ListNode(value);
-    current.next = next;
+    if (current) current.next = next;
     current = next;
   }
 
