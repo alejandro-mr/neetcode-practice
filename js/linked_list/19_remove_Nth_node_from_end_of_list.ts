@@ -2,25 +2,24 @@ import ListNode from "./lib/list_node";
 import { createList, listToArray } from "./lib/utils";
 
 function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
-  // first idea, we dump the nodes into an array in reverse order, and I'll only have to traverse the array N positions and remove that node.
-  // O(n) complexity and O(n) extra space
-
   if (!head) return head;
 
-  let nodes: Array<ListNode> = [head];
-  while (head.next) {
-    nodes.unshift(head.next);
-    head = head.next;
+  const sentinel = new ListNode(undefined, head);
+  let slow: ListNode | null | undefined = sentinel;
+  let fast: ListNode | null | undefined = head;
+
+  while (n > 0) {
+    fast = fast?.next;
+    n -= 1;
   }
 
-  if (n > nodes.length) return nodes.pop() || null;
-  if (n === nodes.length) {
-    nodes.pop();
-    return nodes.pop() || null;
+  while (fast) {
+    fast = fast.next;
+    slow = slow?.next;
   }
 
-  nodes[n].next = nodes[n - 1].next;
-  return nodes.pop() || null;
+  if (slow && slow.next) slow.next = slow.next.next;
+  return sentinel.next;
 }
 
 (() => {
