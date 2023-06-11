@@ -1,6 +1,6 @@
 // const { performance } = require('perf_hooks')
 function containsDuplicate(nums: number[]): boolean {
-  let unique: Map<number, boolean> = new Map();
+  const unique: Map<number, boolean> = new Map();
 
   for (const num of nums) {
     if (unique.get(num)) return true;

@@ -1,13 +1,13 @@
-import maxInput from "./lib/128_input";
+import maxInput from './lib/128_input';
 
 function longestConsecutive(nums: number[]): number {
   if (nums.length <= 1) return nums.length;
 
   const sequence: Set<number> = new Set(nums);
 
-  let maxSeq: number = 1,
-    counter: number = 1;
-  for (let num of nums) {
+  let maxSeq = 1,
+    counter = 1;
+  for (const num of nums) {
     if (sequence.has(num - 1)) continue;
     for (let i = num + 1; i <= num + nums.length - 1; i++) {
       if (sequence.has(i)) {
