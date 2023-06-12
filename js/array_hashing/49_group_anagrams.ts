@@ -1,4 +1,4 @@
-function groupAnagrams(strs: string[]): string[][] {
+export default function groupAnagrams(strs: string[]): string[][] {
   if (strs.length <= 1) {
     return [strs];
   }
@@ -20,19 +20,3 @@ function groupAnagrams(strs: string[]): string[][] {
   }
   return [...groups.values()];
 }
-
-(() => {
-  // Test cases
-
-  // result: [["bat"],["nat","tan"],["ate","eat","tea"]]
-  console.log(groupAnagrams(['eat', 'tea', 'tan', 'ate', 'nat', 'bat']));
-
-  // result: [['']]
-  console.log(groupAnagrams(['']));
-
-  // result: [['a']]
-  console.log(groupAnagrams(['a']));
-
-  // result: [['a', 'a'], ['aa'], ['ab']]
-  console.log(groupAnagrams(['a', 'a', 'aa', 'ab']));
-})();
