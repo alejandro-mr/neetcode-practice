@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import groupAnagrams from './49_group_anagrams';
+import groupAnagrams from '../49_group_anagrams';
 
 describe.concurrent('groupAnagrams', () => {
   it("Should return [['bat'],['nat','tan'],['ate','eat','tea']]", async () => {

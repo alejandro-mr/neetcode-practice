@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import isValidSudoku from './36_valid_sudoku';
+import isValidSudoku from '../36_valid_sudoku';
 
 describe.concurrent('isValidSudoku', () => {
   it('Should return true', async () => {
