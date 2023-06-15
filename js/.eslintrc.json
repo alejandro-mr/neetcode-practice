@@ -15,5 +15,6 @@
   "rules": {
     "quotes": "off",
     "@typescript-eslint/quotes": [2, "single"]
-  }
+  },
+  "ignorePatterns": ["node_modules/**"]
 }

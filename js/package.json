@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Implementation of neetcode.io algorithms using JavaScript/TypeScript.",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "lint": "eslint **/*.ts **/*.ts"
   },
   "author": "Alejandro Moreno",
   "license": "ISC",
