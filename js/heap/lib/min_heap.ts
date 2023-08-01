@@ -35,10 +35,6 @@ class MinHeap<T> implements IMinHeap<T> {
     this.#heap = [];
   }
 
-  heap(): (HeapItem<T> | undefined)[] {
-    return this.#heap;
-  }
-
   size(): number {
     return this.#heap.length;
   }
@@ -89,14 +85,11 @@ class MinHeap<T> implements IMinHeap<T> {
       const node = this.#heap[index];
       if (!node) break;
 
-      console.log('bubbling down: ', node.value, ' at position: ', index);
-
       const leftIndex = 2 * index + 1;
       const rightIndex = 2 * index + 2;
       const left = this.#heap[leftIndex];
       const right = this.#heap[rightIndex];
 
-      console.log(left?.value, right?.value);
       if (!left) break;
 
       if (
