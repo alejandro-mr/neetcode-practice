@@ -1,5 +1,5 @@
 function isPalindrome(s: string): boolean {
-  const palindrome: string = s.toLowerCase().replace(/[^a-z0-9]/gi, "");
+  const palindrome: string = s.toLowerCase().replace(/[^a-z0-9]/gi, '');
   if (palindrome.length <= 1) return true;
 
   let left = 0;
@@ -19,11 +19,11 @@ function isPalindrome(s: string): boolean {
   // Test cases
 
   // result: true
-  console.log(isPalindrome("A man, a plan, a canal: Panama"));
+  console.log(isPalindrome('A man, a plan, a canal: Panama'));
   // result: false
-  console.log(isPalindrome("race a car"));
+  console.log(isPalindrome('race a car'));
   // result: true
-  console.log(isPalindrome(" "));
+  console.log(isPalindrome(' '));
   // result: true
-  console.log(isPalindrome("aa"));
+  console.log(isPalindrome('aa'));
 })();

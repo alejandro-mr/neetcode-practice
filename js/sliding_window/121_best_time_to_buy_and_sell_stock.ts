@@ -1,6 +1,6 @@
 function maxProfit(prices: number[]): number {
-  let [i, j]: [number, number] = [0, 1];
-  let maxProfit: number = 0;
+  let [i, j] = [0, 1];
+  let maxProfit = 0;
 
   while (j < prices.length) {
     if (prices[j] > prices[i]) {

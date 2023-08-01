@@ -9,11 +9,11 @@ function maxArea(height: number[]): number {
   let max = 0;
   while (i < k) {
     // base of container
-    let b = k - i;
+    const b = k - i;
     // height of container
-    let h = Math.min(height[i], height[k]);
+    const h = Math.min(height[i], height[k]);
     // area of container
-    let a = b * h;
+    const a = b * h;
 
     max = a > max ? a : max;
 

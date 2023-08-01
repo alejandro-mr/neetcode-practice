@@ -1,8 +1,8 @@
 function lengthOfLongestSubstring(s: string): number {
   if (!s.length) return 0;
 
-  let left: number = 0;
-  let set: Set<string> = new Set();
+  let left = 0;
+  const set: Set<string> = new Set();
   set.add(s[left]);
 
   let longest: number = set.size;
@@ -24,14 +24,14 @@ function lengthOfLongestSubstring(s: string): number {
   // Test cases
 
   // result: 3
-  console.log(lengthOfLongestSubstring("abcabcbb"));
+  console.log(lengthOfLongestSubstring('abcabcbb'));
 
   // result: 1
-  console.log(lengthOfLongestSubstring("bbbbb"));
+  console.log(lengthOfLongestSubstring('bbbbb'));
 
   // result: 3
-  console.log(lengthOfLongestSubstring("pwwkew"));
+  console.log(lengthOfLongestSubstring('pwwkew'));
 
   // result: 3
-  console.log(lengthOfLongestSubstring("dvdf"));
+  console.log(lengthOfLongestSubstring('dvdf'));
 })();
