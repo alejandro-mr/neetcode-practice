@@ -13,8 +13,9 @@
   },
   "plugins": ["@typescript-eslint"],
   "rules": {
-    "quotes": "off",
-    "@typescript-eslint/quotes": [2, "single"]
+    "quotes": 0,
+    "@typescript-eslint/quotes": [2, "single"],
+    "@typescript-eslint/semi": ["error", "always"]
   },
   "ignorePatterns": ["node_modules/**"]
 }
